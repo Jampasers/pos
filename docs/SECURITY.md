@@ -13,7 +13,7 @@
 
 ## Operational responsibilities
 
-Serve API/frontend through TLS on the same site (e.g. pos.example.com/admin.example.com/api.example.com) with explicit origins. Cross-site cookie deployments require an explicit SameSite strategy and CSRF review; do not weaken the default by wildcarding origins. API binds loopback locally; container deployment must explicitly set HOST=0.0.0.0 behind a trusted proxy. Trust-proxy remains off by default; enable only for known ingress CIDRs after deployment design to protect rate limits/IP attribution.
+Serve API/frontend through TLS on the same site (e.g. pos.example.com/admin.example.com/api.example.com) with explicit origins. Cross-site cookie deployments require an explicit SameSite strategy and CSRF review; do not weaken the default by wildcarding origins. API binds loopback locally; container deployment must explicitly set API_HOST=0.0.0.0 behind a trusted proxy. Trust-proxy remains off by default; enable only for known ingress CIDRs after deployment design to protect rate limits/IP attribution.
 
 Do not pass DATABASE_ADMIN_URL or seed credentials into API containers. Rotate example database/Redis/storage passwords. Grant runtime only required operations; never make it migration owner. Use managed secret storage in deployment. Production migrations run as a separate job with backup and forward-fix plan. Log request IDs and action identifiers, not customer receipt contents/session/passwords. Send sanitized errors to Sentry in Phase 4, with OpenTelemetry exporter and access controls.
 

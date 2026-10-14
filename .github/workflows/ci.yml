@@ -17,8 +17,10 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       TURBO_TELEMETRY_DISABLED: '1'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
       - name: Install pinned pnpm and dependencies
@@ -42,7 +44,7 @@ jobs:
         run: |
           pnpm exec playwright install --with-deps chromium
           pnpm test:e2e
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: browser-failure-evidence

@@ -10,6 +10,6 @@ export default defineConfig({
   webServer: [
     { command: 'pnpm --filter @pos/api start', url: 'http://localhost:4000/v1/health/ready', reuseExistingServer: !process.env.CI, timeout: 60000 },
     { command: 'pnpm --filter @pos/pos preview --host 127.0.0.1', url: 'http://localhost:5173', reuseExistingServer: !process.env.CI, timeout: 60000 },
-    { command: 'pnpm --filter @pos/admin start', url: 'http://localhost:3000', reuseExistingServer: !process.env.CI, timeout: 60000 },
+    { command: 'pnpm --filter @pos/admin start --port 3000', env: { NODE_ENV: 'production' }, url: 'http://localhost:3000', reuseExistingServer: !process.env.CI, timeout: 60000 },
   ],
 });

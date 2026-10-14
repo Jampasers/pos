@@ -9,6 +9,9 @@ describe('financial rules', () => {
   it('preserves amounts above Number safe precision', () => {
     expect(priceLine({ ...line, unitPrice: '9007199254740993', modifierPrices: [], quantity: 1, discount: '0', serviceBasisPoints: 0, taxBasisPoints: 0 }).total).toBe('9007199254740993');
   });
+  it('rejects numeric money at runtime rather than converting rounded numbers', () => {
+    expect(() => money(9_007_199_254_740_992 as unknown as string)).toThrow();
+  });
   it('rounds half-up at a minor unit boundary', () => { expect(roundBasisPoints(5n, 1000)).toBe(1n); expect(roundBasisPoints(4n, 1000)).toBe(0n); });
   it.each(['-1', '1.2', '01', '1e3', 'NaN', (MAX_MONEY + 1n).toString()])('rejects unsafe monetary input %s', value => { expect(() => money(value)).toThrow(); });
   it('rejects discount beyond subtotal', () => { expect(() => priceLine({ ...line, discount: '60001' })).toThrow('Discount exceeds'); });

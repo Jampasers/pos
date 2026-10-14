@@ -9,4 +9,5 @@ it('refuses wildcard or insecure production origins', () => {
 it('uses bounded session TTL and an explicit origin allowlist', () => {
   const env = parseEnvironment({ DATABASE_URL: 'postgres://user:pass@localhost/pos', ALLOWED_ORIGINS: 'http://localhost:5173,http://localhost:3000' });
   expect(env.SESSION_TTL_SECONDS).toBe(28800); expect(env.ALLOWED_ORIGINS).toHaveLength(2);
+  expect(parseEnvironment({ DATABASE_URL: 'postgres://user:pass@localhost/pos', ALLOWED_ORIGINS: 'http://localhost:5173', API_PORT: '4001', PORT: '3000' }).API_PORT).toBe(4001);
 });

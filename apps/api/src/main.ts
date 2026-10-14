@@ -7,4 +7,4 @@ import { createApplication } from './app.js';
 config({ path: fileURLToPath(new URL('../../../.env', import.meta.url)), quiet: true });
 const env = parseEnvironment(process.env);
 const app = await createApplication(env, true);
-await app.listen(env.PORT, env.HOST);
+await app.listen(env.API_PORT, env.API_HOST);

@@ -7,11 +7,11 @@ Date: 2026-10-15. Scope: Phase 0 and Phase 1 foundation, not a finished POS MVP.
 | Repository inspection | Initial repository contained only README.md and one main commit; no existing implementation was overwritten |
 | Compatible install | Exact direct versions and peer constraints checked against official docs/npm metadata; frozen offline reinstallation passed |
 | Strict types | Applications, packages, test files and tool scripts passed |
-| Unit/database-WASM tests | 31 tests passed across five files; Argon2id, money/state rules, strict contracts, config, forced RLS, scoped FK and rollback checks |
+| Unit/database-WASM tests | 32 tests passed across five files; Argon2id, money/state rules, strict contracts, config, forced RLS, scoped FK and rollback checks |
 | Production builds | API + seven shared packages + React/Vite POS + Next dashboard built successfully |
 | Migrations/seed | Applied real Drizzle migrations to a local PostgreSQL-WASM engine using the normal pg wire client; second migration application was harmless; explicit seed succeeded |
 | Running API/HTTP flow | NestJS/Fastify ran with a nonowner pos_app role on PGlite. Readiness, password login, two-merchant discovery, tenant/outlet denial, CSRF, strict input, outlet creation, device retry/revocation and logout passed real HTTP assertions |
-| Native PostgreSQL/API suite | 13 integration cases implemented and typechecked; CI execution recorded separately below |
+| Native PostgreSQL/API suite | 13 integration cases passed against native PostgreSQL 17.10 in GitHub Actions |
 | Browser suite | Three Playwright user journeys implemented and typechecked; CI execution recorded separately below |
 | Hardware/native/offline sales | Not implemented or verified; future phase gates |
 
@@ -27,4 +27,4 @@ The GitHub Actions workflow provisions a disposable native PostgreSQL container 
 
 ## CI result
 
-Pending first main-branch run. See repository Actions; update this record after the run, including any external service limitations.
+First run: https://github.com/Jampasers/pos/actions/runs/38615031139 — install, strict types, 31 initial unit/SQL-WASM tests, builds, native PostgreSQL migrations/seed and all 13 API integration cases passed. Browser startup revealed an inherited PORT collision (Next attempted to bind the API port). API_PORT/API_HOST now scope API configuration, and the browser runner explicitly starts Next on port 3000 with production mode. Browser execution awaits the follow-up run.

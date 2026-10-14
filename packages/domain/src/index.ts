@@ -1,7 +1,7 @@
 export const MAX_MONEY = 9_223_372_036_854_775_807n;
 
 export function money(value: string): bigint {
-  if (value.length > 19 || !/^(0|[1-9]\d*)$/.test(value)) throw new RangeError('Money must be a nonnegative decimal integer within database range');
+  if (typeof value !== 'string' || value.length > 19 || !/^(0|[1-9]\d*)$/.test(value)) throw new RangeError('Money must be a nonnegative decimal integer within database range');
   const amount = BigInt(value);
   if (amount > MAX_MONEY) throw new RangeError('Money exceeds database range');
   return amount;
