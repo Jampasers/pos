@@ -1,0 +1,13 @@
+packages:
+  - apps/*
+  - packages/*
+onlyBuiltDependencies:
+  - argon2
+  - esbuild
+  - '@tailwindcss/oxide'
+  - '@nestjs/core'
+strictPeerDependencies: true
+overrides:
+  fastify: 5.12.7
+ignoredBuiltDependencies:
+  - '@scarf/scarf'

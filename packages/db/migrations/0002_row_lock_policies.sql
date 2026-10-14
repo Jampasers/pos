@@ -1,0 +1,2 @@
+CREATE POLICY "memberships_lock_only" ON "memberships" AS PERMISSIVE FOR UPDATE TO "pos_app" USING ("memberships"."user_id" = nullif(current_setting('app.user_id', true), '')::uuid) WITH CHECK (false);--> statement-breakpoint
+CREATE POLICY "tenants_lock_only" ON "tenants" AS PERMISSIVE FOR UPDATE TO "pos_app" USING (exists (select 1 from memberships m where m.tenant_id = "tenants"."id" and m.user_id = nullif(current_setting('app.user_id', true), '')::uuid and m.active)) WITH CHECK (false);
